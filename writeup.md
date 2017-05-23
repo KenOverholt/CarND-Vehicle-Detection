@@ -14,7 +14,7 @@ The goals / steps of this project are the following:
 - [x] Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[image1]: ./examples/car_not_car.png
+[image1]: ./writeup_images/HOG_channel_experiment.png
 [image2]: ./examples/HOG_example.jpg
 [image3]: ./examples/sliding_windows.jpg
 [image4]: ./examples/sliding_window.jpg
@@ -37,11 +37,14 @@ You're reading it!
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
+In the second cell in my IPython notebook, P5.ipynb, I call `extract_features()` at lines 46 & 55 to extract the HOG, histogram of color, and spatial binning features used in training my Support Vector Maching.  The feature extration routines are defined in the first cell.  In extract_features, I cycle through each image applying all 3 feature extraction methods.  First I convert to the applicable color space in lines 65-75.  Next I apply spacial binning in lines 78-80.  Experimentation with an early version of the code showed beneficial results at an image size of 18x18.  Next, in lines 81-84, I apply histograms of color features.  These lines call the color_hist funcation in lines 41-49 which creates a histogram with 32 bins for each color channel.  Note that my tuning parameters are defined in the second cell at lines 33-43.
+
+Lastly, I extract the Histogram of Oriented Gradient (HOG) features.  I experiemented using each of the three channels and the all of them.  Individual channel results were good but using all provided the best result.  Here are my results:
+![alt text][image1]
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
-![alt text][image1]
+![alt text][image1a]
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
