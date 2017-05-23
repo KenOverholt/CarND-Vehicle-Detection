@@ -52,7 +52,7 @@ Lastly, I extract the Histogram of Oriented Gradient (HOG) features.  I experiem
 
 I ran my classifier using each color option and found two to be the best choices and comparable to each other.  The are YUV and YCrCb.  As I proceeded developing my code and further training, I experiement on both of those color choices to see which would give me an edge.  In the end, I chose YUV.
 
-Here are examples of each color space choices run through my clasifier:
+Here are examples of each color space choices run through my classifier:
 ![alt_text][image3]
 
 My HOG parameters didn't require much tuning.  I experimented with each HOG channel as indicated above and settled on using them all.
