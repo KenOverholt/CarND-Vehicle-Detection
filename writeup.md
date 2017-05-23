@@ -17,7 +17,7 @@ The goals / steps of this project are the following:
 [image1]: ./writeup_images/car_not-car_examples.png
 [image2]: ./writeup_images/HOG_channel_experiment.png
 [image3]: ./writeup_images/color_spaces.png
-[image4]: ./writeup_images/sliding_window.jpg
+[image4]: ./writeup_images/sliding_window.png
 [image5]: ./writeup_images/detection.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
@@ -52,7 +52,7 @@ Lastly, I extract the Histogram of Oriented Gradient (HOG) features.  I experiem
 
 I ran my classifier using each color option and found two to be the best choices and comparable to each other.  The are YUV and YCrCb.  As I proceeded developing my code and further training, I experiement on both of those color choices to see which would give me an edge.  In the end, I chose YUV.
 
-Here are examples of each color space choices run through my clasifier:
+Here are examples of each color space choices run through my classifier:
 ![alt_text][image3]
 
 My HOG parameters didn't require much tuning.  I experimented with each HOG channel as indicated above and settled on using them all.
@@ -92,26 +92,14 @@ Ultimately I searched using YCrCb 3-channel HOG features plus spatially binned c
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./output_images/project_video_result_YUV_withHeat.mp4)
+Here's a [link to my video result that does not maintain a frame history](./output_images/project_video_result_YUV_withHeat.mp4)
+
+Here's a [link to my video result that does maintain a frame history](./output_images/project_video_result_YUV_withHeatSum.mp4)
 
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
-
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
-
-### Here are six frames and their corresponding heatmaps:
-
-![alt text][image5]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
-
+In the fourth cell titled Heatmap functions, I took in the list of positive detections at line 60.  I created a heatmap from that list and applied a threshold in line 74 to help remove false positivies.  In lines 77-78, I summed up the heatmaps over the current and previous 9 frames storing them in a dequeue created in line 57.  In line 85, I used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap and drew the related boxes around each vehicle in line 86.
 
 ---
 
@@ -119,5 +107,6 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Prior to storing vehicle detection history, my pipeline detected vehicles reasonably well but the bounding boxes were jumpy.  It found minimal false positives.  After storing detection history and usig that to track where vehicles were, the boxes stabilized a bit but more false positives started being detected.  I need to further explore how to keep the improved vehicle detections while at the same time keeping the false positivies low.
 
+There is also a brief segment where I lose the white vehicle as it gets farther away from my vehicle.  Although I have 8792 vehicle images, I may need more training images for that vehicle. 
