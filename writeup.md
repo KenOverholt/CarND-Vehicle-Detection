@@ -17,8 +17,8 @@ The goals / steps of this project are the following:
 [image1]: ./writeup_images/car_not-car_examples.png
 [image2]: ./writeup_images/HOG_channel_experiment.png
 [image3]: ./writeup_images/color_spaces.png
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
+[image4]: ./writeup_images/sliding_window.jpg
+[image5]: ./writeup_images/detection.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
@@ -77,21 +77,22 @@ Test Accuracy of SVC =  0.9887
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+My first implementation of sliding windows used 128x128-pixel windows with 50% overlap in the x and y directions.
+![alt text][image4]
 
-![alt text][image3]
+Since cars usually drive on the road and to not fly, I next limited the search to just the bottom portion of the image where the road is in order to reduce search time.  My final implementation uses HOG subsampling to extract hog features once and then sub-sample to get each overlaying window.  This happens in my notebook's third cell titled "Extract features & predict".  The window is set to a sampling rate of 64 in line 38.  cells_per_step is set to 2 in line 40 so that the window steps by 2 rather than by a percent as in the first implementation.  
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
-![alt text][image4]
+![alt text][image5]
 ---
 
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./output_images/project_video_result_YUV_withHeat.mp4)
 
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
