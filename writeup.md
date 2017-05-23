@@ -14,8 +14,8 @@ The goals / steps of this project are the following:
 - [x] Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[image1]: ./writeup_images/HOG_channel_experiment.png
-[image2]: ./examples/HOG_example.jpg
+[image1]: ./writeup_images/car_not-car_examples.png
+[image2]: ./writeup_images/HOG_channel_experiment.png
 [image3]: ./examples/sliding_windows.jpg
 [image4]: ./examples/sliding_window.jpg
 [image5]: ./examples/bboxes_and_heat.png
@@ -37,14 +37,17 @@ You're reading it!
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
-In the second cell in my IPython notebook, P5.ipynb, I call `extract_features()` at lines 46 & 55 to extract the HOG, histogram of color, and spatial binning features used in training my Support Vector Maching.  The feature extration routines are defined in the first cell.  In extract_features, I cycle through each image applying all 3 feature extraction methods.  First I convert to the applicable color space in lines 65-75.  Next I apply spacial binning in lines 78-80.  Experimentation with an early version of the code showed beneficial results at an image size of 18x18.  Next, in lines 81-84, I apply histograms of color features.  These lines call the color_hist funcation in lines 41-49 which creates a histogram with 32 bins for each color channel.  Note that my tuning parameters are defined in the second cell at lines 33-43.
+In the second cell in my IPython notebook, P5.ipynb, I call `extract_features()` at lines 46 & 55 to extract the HOG, histogram of color, and spatial binning features used in training my Support Vector Machine.  The first call extracts features from the vehicle images while the second extracts them from the non-vehicle images.  The feature extration routines are defined in the first cell of the notebook.  In `extract_features()` starting 60, I cycle through each image.  The first step is to read in the image so here are examples of a vehicle and a non-vehicle:
 
-Lastly, I extract the Histogram of Oriented Gradient (HOG) features.  I experiemented using each of the three channels and the all of them.  Individual channel results were good but using all provided the best result.  Here are my results:
-![alt text][image1]
+![alt_text][image1]
 
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+inapplying all 3 feature extraction methods.  First I convert to the applicable color space in lines 65-75.  Next I apply spacial binning in lines 78-80.  Experimentation with an early version of the code showed beneficial results at an image size of 18x18.  Next, in lines 81-84, I apply histograms of color features.  These lines call the `color_hist()` in lines 41-49 which creates a histogram with 32 bins for each color channel.  Note that my tuning parameters are defined in the second cell at lines 33-43.
 
-![alt text][image1a]
+Lastly, I extract the Histogram of Oriented Gradient (HOG) features.  I experiemented using each of the three channels and then all of them.  Individual channel results were good but using all of them provided the best result as indicated here:
+![alt text][image2]
+
+
+
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
