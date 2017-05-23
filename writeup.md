@@ -48,17 +48,6 @@ After reading in the image, I convert it to the applicable color space in lines 
 Lastly, I extract the Histogram of Oriented Gradient (HOG) features.  I experiemented using each of the three channels and then all of them.  Individual channel results were good but using all of them provided the best result as indicated here:
 ![alt text][image2]
 
-
-
-
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
-
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=
-(2, 2)`:
-
-
-![alt text][image2]
-
 #### 2. Explain how you settled on your final choice of HOG and color parameters.
 
 I ran my classifier using each color option and found two to be the best choices and comparable to each other.  The are YUV and YCrCb.  As I proceeded developing my code and further training, I experiement on both of those color choices to see which would give me an edge.  In the end, I chose YUV.
