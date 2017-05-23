@@ -59,7 +59,19 @@ My HOG parameters didn't require much tuning.  I experimented with each HOG chan
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using...
+I trained a linear SVM in the second cell of my notebook.  After reading in the image filename and separating them into vehicle and non-vehicle arrays in lines 19-26, I set my parameters in lines 34-43 and then extract vehicle features in line 46 and non-vehicle features in line 55.  In line 66, I use `StandardScalar().fit()` to compute the mean and standard deviation.  In line 68, I use `transform()` to standardize the data by centering and scaling.  If features were not standardized, those that were much larger might skew the results keepin the classifier from learning the much smaller features.
+
+In line 71, I set up the labels vector.  Line 74 shuffles to the data and line 75 splits it into 80% training and 20% test.  Lines 82 & 85 train the SVM and here's an example of one run:
+
+0.16 Seconds to read in cars/notcars image filenames
+cars size:  8792
+non-cars size:  8968
+163.01 Seconds extract car features
+147.86 Seconds to extract notcar features
+Using: 11 orientations 12 pixels per cell and 4 cells per block
+Feature vector length: 3180
+12.08 Seconds to train SVC
+Test Accuracy of SVC =  0.9887
 
 ### Sliding Window Search
 
