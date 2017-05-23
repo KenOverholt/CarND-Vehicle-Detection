@@ -17,7 +17,7 @@ The goals / steps of this project are the following:
 [image1]: ./writeup_images/car_not-car_examples.png
 [image2]: ./writeup_images/HOG_channel_experiment.png
 [image3]: ./writeup_images/color_spaces.png
-[image4]: ./writeup_images/sliding_window.jpg
+[image4]: ./writeup_images/sliding_window.png
 [image5]: ./writeup_images/detection.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
