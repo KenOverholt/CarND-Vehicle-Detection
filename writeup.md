@@ -39,7 +39,7 @@ You're reading it!
 
 In the second cell in my IPython notebook, P5.ipynb, I call `extract_features()` at lines 46 & 55 to extract the HOG, histogram of color, and spatial binning features used in training my Support Vector Machine.  The first call extracts features from the vehicle images while the second extracts them from the non-vehicle images.  The feature extration routines are defined in the first cell of the notebook.  In `extract_features()` starting 60, I cycle through each image.  The first step is to read in the image so here are examples of a vehicle and a non-vehicle:
 
-![alt_text][image1]
+|:![alt_text][image1]:|
 
 inapplying all 3 feature extraction methods.  First I convert to the applicable color space in lines 65-75.  Next I apply spacial binning in lines 78-80.  Experimentation with an early version of the code showed beneficial results at an image size of 18x18.  Next, in lines 81-84, I apply histograms of color features.  These lines call the `color_hist()` in lines 41-49 which creates a histogram with 32 bins for each color channel.  Note that my tuning parameters are defined in the second cell at lines 33-43.
 
