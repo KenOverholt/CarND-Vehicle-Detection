@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 [image1]: ./writeup_images/car_not-car_examples.png
 [image2]: ./writeup_images/HOG_channel_experiment.png
-[image3]: ./examples/sliding_windows.jpg
+[image3]: ./writeup_images/color_spaces.png
 [image4]: ./examples/sliding_window.jpg
 [image5]: ./examples/bboxes_and_heat.png
 [image6]: ./examples/labels_map.png
@@ -59,9 +59,14 @@ Here is an example using the `YCrCb` color space and HOG parameters of `orientat
 
 ![alt text][image2]
 
-#### 2. Explain how you settled on your final choice of HOG parameters.
+#### 2. Explain how you settled on your final choice of HOG and color parameters.
 
-I tried various combinations of parameters and...
+I ran my classifier using each color option and found two to be the best choices and comparable to each other.  The are YUV and YCrCb.  As I proceeded developing my code and further training, I experiement on both of those color choices to see which would give me an edge.  In the end, I chose YUV.
+
+Here are examples of each color space choices run through my clasifier:
+![alt_text][image3]
+
+My HOG parameters didn't require much tuning.  I experimented with each HOG channel as indicated above and settled on using them all.
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
